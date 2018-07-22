@@ -19,8 +19,9 @@ io.on('connection', socket => {
     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app!')) //отправляет сообщение 1-му польз.
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'Someone joined the chat')) //отправляет всем кроме 1
 
-    socket.on('createMessage', message => {
+    socket.on('createMessage',(message, callback) => {
         io.emit('newMessage', generateMessage(message.from, message.text))
+        callback('Server got ur message')
     })
 
     socket.on('disconnect', () => {
