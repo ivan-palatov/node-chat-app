@@ -7,15 +7,17 @@ socket.on('disconnect', () => {
 })
 
 socket.on('newMessage', (message) => {
+    let formatedTime = moment(message.createdAt).format('H:mm:ss')
     let li = $('<li></li>')
-    li.text(`${message.from}: ${message.text}`)
+    li.text(`${message.from} ${formatedTime}: ${message.text}`)
     $('#messages').append(li)
 })
 
 socket.on('newLocationMessage', message => {
     let li = $('<li></li>')
     let a = $('<a target="_blank">My current location</a>')
-    li.text(`${message.from}: `)
+    let formatedTime = moment(message.createdAt).format('H:mm:ss')
+    li.text(`${message.from} ${formatedTime}: `)
     a.attr('href', message.url)
     li.append(a)
     $('#messages').append(li)
