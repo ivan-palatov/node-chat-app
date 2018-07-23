@@ -31,6 +31,12 @@ socket.on('disconnect', () => {
     console.log('Disconnected from server')
 })
 
+socket.on('updateUserList', users => {
+    let ol = $('<ol></ol>')
+    users.forEach(user => ol.append($('<li></li>').text(user)));
+    $('#users').html(ol)
+})
+
 socket.on('newMessage', (message) => {
     let template = $('#message-template').html()
     let html = Mustache.render(template, {
